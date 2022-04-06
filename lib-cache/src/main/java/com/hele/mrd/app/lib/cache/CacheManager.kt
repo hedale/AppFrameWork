@@ -12,6 +12,21 @@ class CacheManager<K, V>(private val maxSize: Int, val context: Application) {
 
     private var userCacheCurrentSize = 0
 
+    fun clearUserCache(){
+        trimToSizeWithUser(0)
+        SpUtil.getUserSp(context).edit().clear().apply()
+    }
+
+    fun clearAppCache(){
+        trimToSize(0)
+        SpUtil.getAppSp(context).edit().clear().apply()
+    }
+
+    fun clearAllCache(){
+        clearAppCache()
+        clearUserCache()
+    }
+
     private fun getItemSize(value: V): Int {
         return 1
     }

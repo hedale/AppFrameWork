@@ -2,6 +2,7 @@ package com.hele.mrd.app.lib.base
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.hele.mrd.app.lib.api.ApiConverterException
 import com.hele.mrd.app.lib.api.ApiService
 import com.hele.mrd.app.lib.api.ApiServiceCacheManager
 import com.hele.mrd.app.lib.base.livedata.SingleLiveEvent
@@ -44,6 +45,15 @@ open class BaseViewModel<T : ApiService>(application: Application) : AndroidView
 
     protected fun genBody(params: Any): RequestBody {
         return appComponent.gson.toJson(params).toRequestBody(json)
+    }
+
+    fun handleException(e: Exception,showToast: Boolean = true){
+        if(showToast){
+            toast(e.message)
+        }
+        if(BuildConfig.DEBUG){
+            e.printStackTrace()
+        }
     }
 
     class UI {

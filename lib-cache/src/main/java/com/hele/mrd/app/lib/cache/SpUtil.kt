@@ -5,11 +5,11 @@ import android.content.SharedPreferences
 
 object SpUtil {
 
-    private fun getAppSp(context: Context): SharedPreferences {
+    fun getAppSp(context: Context): SharedPreferences {
         return context.getSharedPreferences("frame_work_cache_app", Context.MODE_PRIVATE)
     }
 
-    private fun getUserSp(context: Context): SharedPreferences {
+    fun getUserSp(context: Context): SharedPreferences {
         return context.getSharedPreferences("frame_work_cache_user", Context.MODE_PRIVATE)
     }
 

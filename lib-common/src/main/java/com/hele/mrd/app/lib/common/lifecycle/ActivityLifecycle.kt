@@ -8,6 +8,9 @@ import com.hele.mrd.app.lib.common.immersion.ImmersionBar
 
 class ActivityLifecycle: Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+
+        ActivityManager.addActivity(activity)
+
         if (activity.javaClass.isAnnotationPresent(ImmersionBar::class.java)) {
             val immersionBar = activity.javaClass.getAnnotation(ImmersionBar::class.java)
             if (immersionBar != null) {
@@ -37,5 +40,6 @@ class ActivityLifecycle: Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
+        ActivityManager.remove(activity)
     }
 }

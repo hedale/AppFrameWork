@@ -26,6 +26,10 @@ fun Long?.format(pattern: String = "yyyy-MM-dd HH:mm",default: String = ""): Str
     return SimpleDateFormat(pattern, Locale.CHINA).format(Date(this))
 }
 
+fun Double?.nullSafe(defaultValue: Double = 0.0): Double{
+    return this ?: defaultValue
+}
+
 fun Any.screenWidth(): Int{
     return displayMetrics.widthPixels
 }
