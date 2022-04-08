@@ -30,6 +30,14 @@ fun Double?.nullSafe(defaultValue: Double = 0.0): Double{
     return this ?: defaultValue
 }
 
+fun Long?.nullSafe(defaultValue: Long = 0L): Long{
+    return this ?: defaultValue
+}
+
+fun Int?.nullSafe(defaultValue: Int = 0): Int{
+    return this ?: defaultValue
+}
+
 fun Any.screenWidth(): Int{
     return displayMetrics.widthPixels
 }
