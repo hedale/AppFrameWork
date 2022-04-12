@@ -47,6 +47,7 @@ open class BaseViewModel<T : ApiService>(application: Application) : AndroidView
         return appComponent.gson.toJson(params).toRequestBody(json)
     }
 
+
     fun handleException(e: Exception,showToast: Boolean = true){
         if(showToast){
             toast(e.message)

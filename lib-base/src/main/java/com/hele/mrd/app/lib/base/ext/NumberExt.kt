@@ -37,6 +37,9 @@ fun Long?.nullSafe(defaultValue: Long = 0L): Long{
 fun Int?.nullSafe(defaultValue: Int = 0): Int{
     return this ?: defaultValue
 }
+fun Float?.nullSafe(defaultValue: Float = 0f): Float{
+    return this ?: defaultValue
+}
 
 fun Any.screenWidth(): Int{
     return displayMetrics.widthPixels
