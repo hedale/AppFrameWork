@@ -1,15 +1,27 @@
 package com.hele.mrd.app.lib.base
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
 import com.hele.mrd.app.lib.base.view.ILoading
 import com.hele.mrd.app.lib.common.ext.showDialogCompat
 import com.hele.mrd.app.lib.common.ext.toast
+import com.hele.mrd.app.lib.router.ActivityResultDto
+import com.hele.mrd.app.lib.router.KEY_DATA
 
 abstract class BaseDialog<VM: BaseViewModel<*>,VB: ViewBinding>: DialogFragment() {
+
+    companion object{
+
+        const val RESULT_OK = -1
+
+        const val RESULT_CANCELED = 0
+    }
 
     protected lateinit var viewModel: VM
 
@@ -18,6 +30,12 @@ abstract class BaseDialog<VM: BaseViewModel<*>,VB: ViewBinding>: DialogFragment(
     private var loading: ILoading<out ViewBinding>? = null
 
     private var dataLoaded = false
+
+    private var dismissCallback: ((intent: Intent?) -> Unit)? = null
+
+    private var mResultCode = RESULT_CANCELED
+
+    private var mResultData: Intent? = null
 
     abstract fun createViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
@@ -91,6 +109,30 @@ abstract class BaseDialog<VM: BaseViewModel<*>,VB: ViewBinding>: DialogFragment(
             attributes = attributes
             setWindowAnimations(dialogAnimations())
         }
+    }
+
+    fun setDismissCallback(bloc: (intent: Intent?) -> Unit){
+        dismissCallback = bloc
+    }
+
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if(mResultCode == RESULT_OK){
+            dismissCallback?.invoke(mResultData)
+            mResultCode = RESULT_CANCELED
+            mResultData = null
+        }else{
+            dismissCallback?.invoke(null)
+        }
+        dismissCallback = null
+    }
+
+    fun setResult(data: Parcelable){
+        val intent = Intent()
+        intent.putExtra(KEY_DATA, ActivityResultDto(data))
+        mResultCode = RESULT_OK
+        mResultData = intent
     }
 
     /**

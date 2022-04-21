@@ -5,9 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ActivityResultDto<T: Parcelable>(
-    val data: T?,
+    val data: T? = null,
 
-    val dataArray: ArrayList<T>?
+    val dataArray: ArrayList<T>? = null,
 ): Parcelable
 
 @Parcelize

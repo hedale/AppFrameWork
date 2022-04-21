@@ -2,15 +2,19 @@ package com.hele.mrd.app.lib.common.ext
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.gyf.immersionbar.ImmersionBar
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 fun AppCompatActivity.showDialogCompat(dialog: DialogFragment){
     val transaction = supportFragmentManager.beginTransaction()
     transaction.add(dialog, localClassName)
     transaction.commitAllowingStateLoss()
 }
+
 
 fun AppCompatActivity.startActivity(clz: Class<*>){
     startActivity(Intent(this,clz))
